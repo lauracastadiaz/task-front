@@ -5,19 +5,22 @@ export const Listado = ({tasks, deleteTask, setTaskToEdit, toggleTaskCompleted }
   if (!Array.isArray(tasks)) {
     return <p className="text-center text-gray-50 text-lg">No hay tareas disponibles</p>; // Muestra un mensaje si tasks no es un arreglo
   }
+  if (tasks.length === 0) {
+    return <p className="text-center text-gray-50 text-lg">No hay tareas disponibles</p>;
+  }
   return (
       <>
-      <div className="overflow-x-auto">
-      <Table className="border border-solid border-indigo-200 p-5 rounded-lg space-y-10 bg-slate-200">
+      <div className="overflow-x-auto max-w-full">
+      <Table className="table-auto border border-solid border-indigo-200 p-5 rounded-lg space-y-10 bg-slate-200 w-full">
         <TableHead>
-          <TableHeadCell>ID</TableHeadCell>
-          <TableHeadCell>Título</TableHeadCell>
-          <TableHeadCell>Descripción</TableHeadCell>
-          <TableHeadCell>Estado</TableHeadCell>
-          <TableHeadCell>
+          <TableHeadCell className="text-xs sm:text-base">ID</TableHeadCell>
+          <TableHeadCell className="text-xs sm:text-base">Título</TableHeadCell>
+          <TableHeadCell className="text-xs sm:text-base">Descripción</TableHeadCell>
+          <TableHeadCell className="text-xs sm:text-base">Estado</TableHeadCell>
+          <TableHeadCell className="text-xs sm:text-base">
             <span className="sr-only">Editar</span>
           </TableHeadCell>
-          <TableHeadCell>
+          <TableHeadCell className="text-xs sm:text-base">
             <span className="sr-only">Borrar</span>
           </TableHeadCell>
         </TableHead>
@@ -40,31 +43,56 @@ export const Listado = ({tasks, deleteTask, setTaskToEdit, toggleTaskCompleted }
             </TableCell>
             <TableCell className={`${
                     task.completed ? "text-gray-500 line-through" : ""
-                  }`}>{task.description}</TableCell>
+                  }hidden sm:table-cell`}>{task.description}</TableCell>
             <TableCell>
               {/* Checkbox para cambiar el estado de completado */}
-              <input type="checkbox" checked={task.completed}  
+              <input className="cursor-pointer" type="checkbox" checked={task.completed}  
               onChange={() => toggleTaskCompleted(task.id, !task.completed)} />
             </TableCell>
-            <TableCell>
+            {/* Botones Editar y Eliminar en pantallas grandes */}
+            <TableCell className="hidden sm:table-cell">
               <button className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
               onClick={() => setTaskToEdit(task)}
               >
                 Editar
               </button>
             </TableCell>
-            <TableCell>
+            <TableCell className="hidden sm:table-cell">
               <button className="font-medium text-red-900 hover:underline dark:text-red-300"
-              onClick={() => deleteTask(task.id)}>
+              onClick={() => {
+                if (window.confirm("¿Estás seguro de que deseas eliminar esta tarea?")) {
+                  deleteTask(task.id);
+                }
+              }}>
                 Eliminar
               </button>
             </TableCell>
+
+              {/* Botones Editar y Eliminar en pantallas pequeñas (se reorganiza en una sola celda) */}
+              <TableCell className="sm:hidden w-full flex flex-col space-y-2 items-center">
+                  <button className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
+                    onClick={() => setTaskToEdit(task)}>
+                    Editar
+                  </button>
+                  <button className="font-medium text-red-900 hover:underline dark:text-red-300"
+                    onClick={() => {
+                      if (window.confirm("¿Estás seguro de que deseas eliminar esta tarea?")) {
+                        deleteTask(task.id);
+                      }
+                    }}>
+                    Eliminar
+                  </button>
+                </TableCell>
+
+
+
           </TableRow>
           ))}
           
         </TableBody>
       </Table>
       </div>
+      
       </>
   );
 };
