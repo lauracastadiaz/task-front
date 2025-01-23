@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 import { Button, Label, TextInput, Textarea } from "flowbite-react";
 
-
 export const Formulario = ({addTask, updateTask, taskToEdit, setTaskToEdit }) => {
   
   const[task, setTask] = useState({ title:"", description: ""});
@@ -27,7 +26,6 @@ export const Formulario = ({addTask, updateTask, taskToEdit, setTaskToEdit }) =>
     setTask({title: "", description: ""}); // Limpiar formulario después de enviar
     setTaskToEdit(null); // Resetea el estado de edición
   }
-
 
     return (
    <>

@@ -3,9 +3,12 @@ import { Header } from "./components/Header";
 import { Formulario } from "./components/Formulario";
 import { Listado } from "./components/Listado";
 import { Footer, FooterCopyright } from "flowbite-react"; //libreria tailwindcss
+import { Toaster, toast } from 'sonner'; // librería sonner para las alertas al pulsar editar o borrar
 
 function App() {
   const url = "https://restapitaskexpress-production.up.railway.app/api/tasks";
+
+  
 
   // STATES
   const [tasks, setTasks] = useState([]); // Lista de Tareas
@@ -22,6 +25,7 @@ function App() {
       setTasks(data);
     } catch (error) {
       console.log("Error al obtener tarea: ", error);
+      toast.error("Hubo un error al cargar las tareas.");
     }
   };
 
@@ -37,9 +41,11 @@ function App() {
       });
       if (response.ok) {
         fetchTasks();
+        toast.success("¡Tarea creada con éxito!");
       }
     } catch (error) {
       console.error("Error al agregar la tarea:", error);
+      toast.error("No se pudo crear la tarea.");
     }
   };
 
@@ -52,9 +58,11 @@ function App() {
       });
       if (response.ok) {
         fetchTasks();
+        toast.success("¡Tarea eliminada con éxito!");
       }
     } catch (error) {
       console.log("Error al eliminar la tarea: ", error);
+      toast.error("No se pudo eliminar la tarea.");
     }
   };
 
@@ -80,9 +88,11 @@ function App() {
         );
         setTasks(updatedTasks); // Actualiza el estado local con las nuevas tareas
         setTaskToEdit(null); // Limpia la tarea en edición
+        toast.success("¡Tarea actualizada con éxito!");
       } else {
         const error = await response.json();
         console.error("Error al actualizar la tarea:", error.error);
+        toast.error("No se pudo actualizar la tarea.");
       }
     } catch (error) {
       console.error("Error de red al actualizar tarea:", error);
@@ -119,10 +129,15 @@ function App() {
         task.id === id ? { ...task, completed } : task
       )
     );
+    toast.success(
+      completed
+        ? "¡Tarea marcada como completada!"
+        : "¡Tarea desmarcada como completada!"
+    );
 
     } catch(error){
       console.log("Error al cambiar el estado como completado", error);
-      alert("Hubo un error al cambiar el estado de la tarea. Por favor, intentelo de nuevo")
+      toast.error("No se pudo cambiar el estado de la tarea.");
     }
   }
 
@@ -161,6 +176,8 @@ function App() {
           />
         </div>
       </main>
+
+      <Toaster position="top-right" richColors /> {/* Configuración global */}
 
       {/* Footer */}
       <Footer container>
