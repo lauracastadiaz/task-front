@@ -5,6 +5,8 @@ export const Listado = ({
   deleteTask,
   setTaskToEdit,
   toggleTaskCompleted,
+  toggleTaskCompletedAll,
+  allCompleted
 }) => {
   if (!Array.isArray(tasks)) {
     return (
@@ -27,14 +29,17 @@ export const Listado = ({
         <table className="table-auto border border-solid border-indigo-200 bg-slate-800 w-full text-sm text-left text-gray-500 dark:text-gray-400 w-ful">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-              <th scope="col" class="p-4">
+              <th scope="col" className="p-4">
                 <div className="flex items-center">
                   <input
                     id="checkbox-all"
-                    type="checkbox"
                     className="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    type="checkbox"
+                    checked= {allCompleted}
+                    onChange={(e) => toggleTaskCompletedAll(e.target.checked)}
+                    
                   />
-                  <label for="checkbox-all" class="sr-only">
+                  <label for="checkbox-all" className="sr-only">
                     checkbox
                   </label>
                 </div>

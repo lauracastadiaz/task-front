@@ -142,6 +142,15 @@ function App() {
   }
 
 
+  // Check de las tareas completadas
+  const toggleTaskCompletedAll = (checked) => {
+    tasks.forEach((task) => toggleTaskCompleted(task.id, checked))
+  }
+
+    // Sincronizar estado del checkbox del encabezado
+    const allCompleted = tasks.length > 0 && tasks.every((task) => task.completed);
+  
+
   // Effect para cargar las tareas al montar el componente
   useEffect(() => {
     fetchTasks();
@@ -173,6 +182,8 @@ function App() {
             deleteTask={deleteTask}
             setTaskToEdit={setTaskToEdit}
             toggleTaskCompleted={toggleTaskCompleted}
+            allCompleted= {allCompleted}
+            toggleTaskCompletedAll= {toggleTaskCompletedAll}
           />
         </div>
       </main>
