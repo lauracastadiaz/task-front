@@ -1,4 +1,3 @@
-import { Flowbite } from "flowbite-react";
 
 export const Listado = ({
   tasks,
@@ -39,12 +38,12 @@ export const Listado = ({
                     onChange={(e) => toggleTaskCompletedAll(e.target.checked)}
                     
                   />
-                  <label for="checkbox-all" className="sr-only">
+                  <label htmlFor="checkbox-all" className="sr-only">
                     checkbox
                   </label>
                 </div>
               </th>
-              <th scope="col" className="px-4 py-3">
+              <th scope="col" className="px-4 py-3 hidden sm:table-cell">
                 ID
               </th>
               <th scope="col" className="px-4 py-3">
@@ -77,7 +76,7 @@ export const Listado = ({
                 </td>
                 <th
                   scope="row"
-                  className={`px-4 py-2 ${
+                  className={`px-4 py-2 hidden sm:table-cell ${
                     task.completed
                       ? "text-gray-500 line-through"
                       : "text-gray-900 dark:text-white"

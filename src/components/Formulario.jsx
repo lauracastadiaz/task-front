@@ -30,7 +30,7 @@ export const Formulario = ({addTask, updateTask, taskToEdit, setTaskToEdit }) =>
     return (
    <>
       {/* Formulario */}
-      <div className="border border-solid border-indigo-200 p-10 rounded-lg space-y-10 bg-indigo-200 w-96">
+      <div className="border border-solid border-indigo-200 p-12 rounded-lg space-y-10 bg-indigo-200 w-96">
         <h2 className="text-3xl text-gray-600">{taskToEdit ? "Actualizar Tarea" : "Nueva Tarea"}</h2>
         <div className="space-y-3 mt-10">
           <form onSubmit={handleSubmit}

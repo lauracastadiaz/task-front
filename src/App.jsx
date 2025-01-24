@@ -3,12 +3,10 @@ import { Header } from "./components/Header";
 import { Formulario } from "./components/Formulario";
 import { Listado } from "./components/Listado";
 import { Footer, FooterCopyright } from "flowbite-react"; //libreria tailwindcss
-import { Toaster, toast } from 'sonner'; // librería sonner para las alertas al pulsar editar o borrar
+import { Toaster, toast } from "sonner"; // librería sonner para las alertas al pulsar editar o borrar
 
 function App() {
   const url = "https://restapitaskexpress-production.up.railway.app/api/tasks";
-
-  
 
   // STATES
   const [tasks, setTasks] = useState([]); // Lista de Tareas
@@ -98,83 +96,79 @@ function App() {
       console.error("Error de red al actualizar tarea:", error);
     }
   };
-  
+
   // Tarea completada
 
   const toggleTaskCompleted = async (id, completed) => {
-    
-    if(!id){
-      console.log("Falta el ID")
+    if (!id) {
+      console.log("Falta el ID");
     }
 
     try {
-       // realizar llamada al backend para cambiar el estado "completed"
-       const response = await fetch(`${url}/${id}/status`, {
-        method: 'PATCH',
+      // realizar llamada al backend para cambiar el estado "completed"
+      const response = await fetch(`${url}/${id}/status`, {
+        method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ completed })
-       })
+        body: JSON.stringify({ completed }),
+      });
 
-       if(!response.ok){
-        throw new Error(`Error al actualizar la tarea`)
-       }
+      if (!response.ok) {
+        throw new Error(`Error al actualizar la tarea`);
+      }
 
-       const updatedTask = await response.json(); 
+      const updatedTask = await response.json();
       console.log("Tarea actualizada:", updatedTask);
-       // Actualizar el estado local de las tareas
-    setTasks((prevTasks) =>
-      prevTasks.map((task) =>
-        task.id === id ? { ...task, completed } : task
-      )
-    );
-    toast.success(
-      completed
-        ? "¡Tarea marcada como completada!"
-        : "¡Tarea desmarcada como completada!"
-    );
-
-    } catch(error){
+      // Actualizar el estado local de las tareas
+      setTasks((prevTasks) =>
+        prevTasks.map((task) =>
+          task.id === id ? { ...task, completed } : task
+        )
+      );
+      toast.success(
+        completed
+          ? "¡Tarea marcada como completada!"
+          : "¡Tarea desmarcada como completada!"
+      );
+    } catch (error) {
       console.log("Error al cambiar el estado como completado", error);
       toast.error("No se pudo cambiar el estado de la tarea.");
     }
-  }
-
+  };
 
   // Check de las tareas completadas
   const toggleTaskCompletedAll = (checked) => {
-    tasks.forEach((task) => toggleTaskCompleted(task.id, checked))
-  }
+    tasks.forEach((task) => toggleTaskCompleted(task.id, checked));
+  };
 
-    // Sincronizar estado del checkbox del encabezado
-    const allCompleted = tasks.length > 0 && tasks.every((task) => task.completed);
-  
+  // Sincronizar estado del checkbox del encabezado
+  const allCompleted =
+    tasks.length > 0 && tasks.every((task) => task.completed);
 
   // Effect para cargar las tareas al montar el componente
   useEffect(() => {
     fetchTasks();
   }, []);
 
-
-
-
-
   return (
     <>
       {/* Header */}
-      <Header />
+      <header className="text-white border-x-blue-400 dark:bg-gray-700 p-7 bg-gray-900 py-5">
+        <Header />
+      </header>
+
 
       <main className="max-w-7xl mx-auto grid py-20 md:grid-cols-3 gap-6">
         
-          {/* Formulario */}
-          <Formulario
-            addTask={addTask}
-            updateTask={updateTask}
-            taskToEdit= {taskToEdit}
-            setTaskToEdit={setTaskToEdit}
-          />
-        
+        {/* Formulario */}
+        <Formulario
+          addTask={addTask}
+          updateTask={updateTask}
+          taskToEdit={taskToEdit}
+          setTaskToEdit={setTaskToEdit}
+        />
+
         {/* Listado */}
         <div className="p-5 space-y-10 col-span-2">
           <Listado
@@ -182,16 +176,16 @@ function App() {
             deleteTask={deleteTask}
             setTaskToEdit={setTaskToEdit}
             toggleTaskCompleted={toggleTaskCompleted}
-            allCompleted= {allCompleted}
-            toggleTaskCompletedAll= {toggleTaskCompletedAll}
+            allCompleted={allCompleted}
+            toggleTaskCompletedAll={toggleTaskCompletedAll}
           />
         </div>
       </main>
 
       <Toaster position="top-right" richColors /> {/* Configuración global */}
-
+      
       {/* Footer */}
-      <Footer container>
+      <Footer className="" container>
         <FooterCopyright
           href="#"
           by="Laura Castaño | Víctor Márquez"
