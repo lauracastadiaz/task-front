@@ -1,18 +1,22 @@
-# Administrador de Tareas
+# ✨ Administrador de Tareas
 
-Aplicación web que lista las tareas. Tiene un formularios donde puedes ir creandolas y agrupandolas. Crud de tareas. 
+Aplicación web que lista las tareas. Tiene un formulario donde puedes ir creandolas y agrupandolas. Crud de tareas.
 
-### Funcionalidad
-**Back-End**: restapi-tasks-main
-**Front-End**: listaTareas 
+Link: https://task-front-production.up.railway.app/
+
+### 📜 Funcionalidad
+**Back-End**: restapi_task_express
+
+**Front-End**: task-front
  
-### Tecnologías
+### 🛠️ Tecnologías Utilizadas
 - Front-end: _React + JavaScript + Vite_
 - Back-end: _JavaScript + Express + MySQL_ 
 - Estilos: _TailwindCss_    
-- Librerías: _Flowbite_ (Formularios, botones, tablas...)
+- Librerías: _Flowbite_ (Formularios, botones.)
+- Despliegue_ _Railway_
 
-### Autores
+### 👨‍💻👩‍💻 Autores
 
-- Front-end: Laura Castaño 
-- Back-end: Víctor Márquez
+- Front-End: Laura Castaño 
+- Back-End: Víctor Márquez
